@@ -1,74 +1,257 @@
-# Swiggy-s-Restaurant-Recommendation-System-using-Streamlit
+**🍽️ Swiggy Restaurant Recommendation System using Streamlit**
+**📌 Project Overview**
 
-Overview:
-The objective is to build a recommendation system based on restaurant data
-provided in a CSV file. The system should recommend restaurants to users based
-on input features such as city, rating, cost, and cuisine preferences. The
-application will utilize clustering or similarity measures to generate
-recommendations and display results in an easy-to-use Streamlit interface. This
-project will provide
-1. Personalized Recommendations: Help users discover restaurants based
-on their preferences.
-2. Improved Customer Experience: Provide tailored suggestions to
-enhance decision-making.
-3. Market Insights: Understand customer preferences and behaviors for
-targeted marketing.
-4. Operational Efficiency: Enable businesses to optimize their offerings
-based on popular preferences.
-Skills:
-1. Data Pre-processing
-2. One-Hot Encoding
-3. Clustering (K-Means, Cosine Similarity)
-4. Streamlit Application Development
-5. Python
-Domain: Recommendation Systems and Data Analytics
-Approach:
-1. The dataset is provided as a CSV file with the following columns: ['id',
-'name', 'city', 'rating', 'rating_count', 'cost', 'cuisine', 'lic_no', 'link', 'address',
-'menu']
-2. Categorical: name, city, cuisine
-3. Numerical: rating, rating_count, cost
-Data Understanding and Cleaning
-1. Duplicate Removal: Identified and drop duplicate rows.
-2. Handling Missing Values: Imputed rows with missing values.
-3. Save the cleaned data to a new CSV file (cleaned_data.csv).
-Data Pre-processing
-1. Encoding: Applied One-Hot Encoding to categorical features (name, city,
-cuisine).
-2. Saved the encoder as a Pickle file (encoder.pkl).
-3. Ensured all features are numerical after encoding.
-4. Created a pre-processed dataset (encoded_data.csv).
-5. Ensured the indices of cleaned_data.csv and encoded_data.csv match.
-Recommendation Methodology
- Clustering or Similarity Measures:
- Used K-Means Clustering and Cosine Similarity to identify similar
-restaurants based on input features.
- Used the encoded dataset for computations.
-Result Mapping:
- Mapped the recommendation results (indices) back to the nonencoded dataset (cleaned_data.csv).
-Streamlit Application
- An interactive application with the following components:
- User Input: Accept user preferences (e.g., city, cuisine,
-rating,price,etc).
- Recommendation Engine: Process the input, query the encoded
-data, and generate recommendations.
- Output: Displayed recommended restaurants using
-cleaned_data.csv.
-Results:
-Data Pre-processing
- Cleaned Dataset (cleaned_data.csv):
- Categorical and numerical features with missing values and
-duplicates removed.
- Encoded Dataset (encoded_data.csv):
- Pre-processed numerical dataset with categorical features
-One-Hot Encoded.
- Encoder File (encoder.pkl):
- Serialized One-Hot Encoder for Streamlit use.
-Recommendation System
- Clustering or Similarity-based recommendation engine.
- Mapping results from encoded_data.csv to cleaned_data.csv for
-interpretation.
-Streamlit Application
- User-friendly interface for input and output.
- Clear display of recommendations from the cleaned dataset.
+This project builds a restaurant recommendation system inspired by Swiggy’s food discovery platform.
+It recommends restaurants based on similarity and clustering techniques, using features such as city, cuisine, and ratings, and presents results through an interactive Streamlit web application.
 
+The system demonstrates an end-to-end recommendation pipeline:
+
+Data cleaning and preprocessing
+
+Encoding categorical features
+
+Clustering & similarity-based recommendation
+
+Real-time recommendation using Streamlit
+
+🎯 **Objectives**
+
+Provide personalized restaurant recommendations
+
+Improve customer experience through tailored suggestions
+
+Enable data-driven insights into food preferences
+
+Demonstrate practical implementation of recommendation systems
+
+🧠 **Business Use Cases**
+
+Personalized food discovery for users
+
+Cuisine and city-based demand analysis
+
+Market insights for restaurant owners
+
+Recommendation engines for food delivery platforms
+
+🗂 **Dataset Description**
+
+Input File: swiggy.csv
+Total Records: ~148,000
+
+Columns
+['id', 'name', 'city', 'rating', 'rating_count',
+ 'cost', 'cuisine', 'lic_no', 'link', 'address', 'menu']
+
+**Feature Types**
+
+Categorical: name, city, cuisine
+
+Numerical: rating, rating_count, cost
+
+🔍 **Project Workflow**
+1️⃣ **Data Understanding & Cleaning**
+Steps Performed
+
+Checked dataset shape and structure
+
+Identified missing values and duplicates
+
+Removed duplicate rows
+
+Handled missing values:
+
+Numerical → Mean imputation
+
+Categorical → Mode imputation
+
+**Output**
+
+cleaned_data.csv
+
+Clean dataset with missing values handled
+
+Used for recommendation display and Streamlit UI
+
+📌 Initial dataset had missing values in rating, cost, cuisine, and address fields.
+
+2️⃣ **Feature Encoding**
+Encoding Technique
+
+Label Encoding applied separately to:
+
+name
+
+city
+
+cuisine
+
+Each column uses its own LabelEncoder.
+
+Files Generated
+
+encoded_data.csv – Numerical dataset for ML models
+
+label_encoders.pkl – Serialized encoders for Streamlit usage
+
+Encoding Summary
+Feature	Unique Categories
+name	112,683
+city	821
+cuisine	2,131
+
+📌 Index alignment between cleaned_data.csv and encoded_data.csv is preserved.
+
+3️⃣ **Feature Scaling**
+
+Applied StandardScaler
+
+Ensures equal weight for all numerical features
+
+Saved scaler as:
+
+scaler.pkl
+
+4️⃣ **Recommendation System Design**
+
+Two complementary recommendation methods are implemented:
+
+🔹 Method 1: MiniBatch K-Means Clustering
+
+Algorithm: MiniBatchKMeans
+
+Efficient for large datasets
+
+Groups similar restaurants into clusters
+
+**Recommendation Logic**
+
+Identify the cluster of the selected restaurant
+
+Retrieve other restaurants from the same cluster
+
+Rank them based on rating
+
+📦 **Saved Files:**
+
+minibatch_kmeans_model.pkl
+
+Cluster-to-restaurant index mapping
+
+🔹 Method 2: Nearest Neighbor (Distance-Based)
+
+Uses Euclidean distance
+
+Processes data in batches (memory-efficient)
+
+Finds restaurants closest in feature space
+
+🔁 **Hybrid Recommendation Output**
+
+Both methods are used to generate and compare recommendations for better relevance.
+
+5️⃣ Streamlit Application
+🖥️ App Features
+Sidebar Filters
+
+City
+
+Cuisine
+
+Price range
+
+Minimum rating
+
+Number of recommendations
+
+Main Interface
+
+Displays matching restaurants
+
+Card-based UI with:
+
+Name
+
+Address
+
+Cuisine
+
+Rating
+
+Cost
+
+Swiggy link
+
+Recommendation Trigger
+
+“Get recommendations similar to this restaurant” button
+
+Uses cluster-based recommendation engine
+
+Search Functionality
+
+Search restaurants by name
+
+Instant results display
+
+🎨 **UI Highlights**
+
+Clean card-style layout
+
+Real-time recommendations
+
+Responsive and user-friendly
+
+Cached data loading for performance
+
+📊 **Results**
+Data Artifacts
+File	Description
+cleaned_data.csv	Cleaned dataset
+encoded_data.csv	Label-encoded dataset
+label_encoders.pkl	Saved encoders
+scaler.pkl	Feature scaler
+minibatch_kmeans_model.pkl	Clustering model
+System Output
+
+Accurate similarity-based recommendations
+
+Consistent mapping from encoded to original data
+
+Scalable architecture for large datasets
+
+🛠 **Technologies Used**
+
+Language: Python
+
+**Libraries:**
+
+Pandas, NumPy
+
+Scikit-learn
+
+Streamlit
+
+ML Techniques:
+
+Label Encoding
+
+Standard Scaling
+
+MiniBatch K-Means
+
+Distance-based similarity
+
+🚀 **Future Enhancements**
+
+One-Hot Encoding or Embedding-based encoding
+
+Collaborative filtering
+
+User preference learning
+
+Cuisine similarity NLP embeddings
+
+Cloud deployment (AWS / GCP)
+
+Login-based personalized recommendations
